@@ -2,14 +2,11 @@ const express = require('express');
 
 const cors = require('cors');
 
-const userContrllers = require('./router/user.contrller');
-const indexRouter = require('./router/index');
-const usersImg = require('./router/user.baseInfo')
 const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 app.use(cors({
-    origin: ['http://127.0.0.1:8080'],
+    origin: ['http://127.0.0.1:8089'],
     methods: ['GET', 'POST'],
     alloweHeaders: ['Conten-Type', 'Authorization']
 }));
@@ -21,9 +18,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-app.use('/', indexRouter);
-app.use('/users', userContrllers);
-app.use('/usersImg', usersImg)
+app.use('/', require('./router/index'));
+app.use('/users', require('./router/user.contrller'));
+app.use('/usersImg', require('./router/user.baseInfo'));
+app.use('/getUsers', require('./router/user.info'))
 
 
 //配置服务端口
